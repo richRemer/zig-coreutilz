@@ -168,6 +168,7 @@ fn help(cmd: []const u8) void {
         \\FORMAT must be suitable for printing one argument of type 'double';
         \\it defaults to %.PRECf if FIRST, INCREMENT, and LAST are all fixed point
         \\decimal numbers with maximum precision PREC, and to %g otherwise.
+        \\
     , .{ cmd, cmd, cmd });
     std.process.exit(0);
 }
@@ -178,6 +179,7 @@ fn version() void {
         \\seq (coreutilz) 0.1
         \\Copyright © 2024, Richard Remer
         \\Original seq (GNU coreutils) written by Ulrich Drepper
+        \\
     , .{});
     std.process.exit(0);
 }
