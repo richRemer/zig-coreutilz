@@ -8,6 +8,7 @@ const build_spec = .{
         .false = .{},
         .seq = .{.iteropt},
         .true = .{},
+        .uname = .{.iteropt},
     },
 };
 
