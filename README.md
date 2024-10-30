@@ -14,7 +14,7 @@ What Commands Are Supported?
 ----------------------------
 The following commands have been implemented to some useful degree.
 
-> seq
+> false seq true uname
 
 More To-Do
 ==========

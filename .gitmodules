@@ -1,3 +1,0 @@
-[submodule "deps/iteropt"]
-	path = deps/iteropt
-	url = git@github.com:richRemer/zig-iteropt.git

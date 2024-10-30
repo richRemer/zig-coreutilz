@@ -85,7 +85,7 @@ const UnameOptions = packed struct(u8) {
                 switch (use.@"error") {
                     .missing_argument => program.erruse(strings.arg_missing, .{opt}),
                     .unexpected_argument => program.erruse(strings.arg_extra, .{opt}),
-                    .unknown_option => program.erruse(strings.op_missing, .{}),
+                    .unknown_option => program.erruse(strings.inv_opt, .{opt}),
                 }
             },
         };

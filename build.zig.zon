@@ -4,12 +4,18 @@
     .minimum_zig_version = "0.14.0",
     .dependencies = .{
         .iteropt = .{
-            .path = "deps/iteropt",
+            .url = "https://github.com/richRemer/zig-iteropt/archive/f9b5b0bcfedd3bc16aed912cd0bef257423f47d9.tar.gz",
+            .hash = "12201e892fa55b36b18083107ff732cd2f62aa3adecc965dbbcff258031399e8d529",
+        },
+        .nss = .{
+            .url = "https://github.com/richRemer/zig-nss/archive/b695a074248331808b10d717b0ee42e6d9d149c7.tar.gz",
+            .hash = "1220f877ab0162187250dd2ef86911f565e6283c9c1f2e184e55918998b0756e1513",
         },
     },
     .paths = .{
         "build.zig",
         "build.zig.zon",
+        "qb.zig",
         "src",
         "LICENSE",
         "README.md",
