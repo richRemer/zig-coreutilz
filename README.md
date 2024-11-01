@@ -14,25 +14,21 @@ What Commands Are Supported?
 ----------------------------
 The following commands have been implemented to some useful degree.
 
-> false seq sleep true uname
+> chown false seq sleep true uname
 
 More To-Do
 ==========
 Aside from all the commands which have not been implemented, there are some
 missing details in those commands which have been partially implemented.
 
+chown Command
+-------------
+* support for '+' prefix to skip uname lookup
+* relies on zig-nss for reading users/groups DBs
+   * zig-nss implements its own version of the 'files' NSS plugin
+   * other NSS plugins have no support
+
 seq Command
 -----------
  * support `-f,--format` options
  * use multiplication instead of repeated addition to avoid float drift
-
-References
-==========
- * [GNU lib progname.c][1]
- * [GNU coreutils seq.c][2]
-
-##### Links
-
-[1]: <https://github.com/coreutils/gnulib/blob/master/lib/progname.c> "progname.c"
-
-[2]: <https://github.com/coreutils/coreutils/blob/master/src/seq.c> "seq.c"
