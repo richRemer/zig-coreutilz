@@ -2,6 +2,7 @@ const std = @import("std");
 const iteropt = @import("iteropt");
 const coreutilz = @import("lib/coreutilz.zig");
 const strings = coreutilz.strings;
+const FloatParser = coreutilz.cli.FloatParser;
 
 // TODO: implement format option
 
@@ -64,8 +65,6 @@ const SeqOptions = struct {
     last: f64 = std.math.nan(f64),
 
     pub fn init(args: *std.process.ArgIterator) SeqOptions {
-        const Float = FloatParser(f64);
-
         var options = SeqOptions{};
         var it = OptionIterator.init(args);
 
@@ -88,15 +87,15 @@ const SeqOptions = struct {
                     if (it.next()) |arg3_opt| {
                         const arg3 = arg3_opt.argument;
 
-                        options.first = Float.parse(arg1);
-                        options.step = Float.parse(arg2);
-                        options.last = Float.parse(arg3);
+                        options.first = parse(arg1);
+                        options.step = parse(arg2);
+                        options.last = parse(arg3);
                     } else {
-                        options.first = Float.parse(arg1);
-                        options.last = Float.parse(arg2);
+                        options.first = parse(arg1);
+                        options.last = parse(arg2);
                     }
                 } else {
-                    options.last = Float.parse(arg1);
+                    options.last = parse(arg1);
                 }
 
                 if (it.next()) |arg_extra| {
@@ -170,19 +169,8 @@ fn looks_neg(argument: []const u8) bool {
 }
 
 /// Parse float arguments.
-fn FloatParser(comptime T: type) type {
-    return struct {
-        /// Parse float or exit with error.
-        pub fn parse(arg: []const u8) T {
-            if (std.fmt.parseFloat(T, arg)) |float| {
-                if (std.math.isNan(float)) {
-                    program.erruse(seq_strings.inv_num, .{arg});
-                } else {
-                    return float;
-                }
-            } else |_| {
-                program.erruse(seq_strings.inv_num, .{arg});
-            }
-        }
+fn parse(arg: []const u8) f64 {
+    return FloatParser(f64, .{ .inf = true }).parse(arg) catch {
+        program.erruse(seq_strings.inv_num, .{arg});
     };
 }

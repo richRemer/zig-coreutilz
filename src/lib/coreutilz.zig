@@ -1,14 +1,18 @@
 const std = @import("std");
 const root = @import("root");
 
+pub const cli = @import("cli.zig");
+pub const fs = @import("fs.zig");
+
 /// Common strings used by many tools.
 pub const strings = struct {
-    null_argv0: []const u8 = "A NULL argv[0] was passed through an exec system call.\n",
-    op_missing: []const u8 = "{s}: missing operand\n",
-    op_extra: []const u8 = "{s}: extra operand '{s}'\n",
     arg_missing: []const u8 = "{s}: option requires an argument -- '{s}'\n",
     arg_extra: []const u8 = "{s}: option '--{s}' doesn't allow an argument\n",
     inv_opt: []const u8 = "{s}: invalid option '{s}'\n",
+    no_mem: []const u8 = "{s}: memory exhausted\n",
+    null_argv0: []const u8 = "A NULL argv[0] was passed through an exec system call.\n",
+    op_missing: []const u8 = "{s}: missing operand\n",
+    op_extra: []const u8 = "{s}: extra operand '{s}'\n",
     try_help: []const u8 = "Try '{s} --help' for more information.\n",
 }{};
 
@@ -34,15 +38,43 @@ pub const Program = struct {
     }
 
     /// Non-blocking, safe write to STDERR
-    pub fn err(this: Program, comptime format: []const u8, args: anytype) void {
+    pub fn err(
+        this: Program,
+        comptime format: []const u8,
+        args: anytype,
+    ) void {
         this.stderr.print(format, args) catch {};
     }
 
-    /// Print usage error and exit.
-    pub fn erruse(this: Program, comptime format: []const u8, args: anytype) noreturn {
+    /// Print error and exit.
+    pub fn errexit(
+        this: Program,
+        status: u8,
+        comptime format: []const u8,
+        args: anytype,
+    ) noreturn {
+        this.errprog(format, args);
+        std.process.exit(status);
+    }
+
+    /// Print error with program name.
+    pub fn errprog(
+        this: Program,
+        comptime format: []const u8,
+        args: anytype,
+    ) void {
         const program_args = .{this.cmd};
         this.err(format, program_args ++ args);
-        this.err(strings.try_help, program_args);
+    }
+
+    /// Print usage error and exit.
+    pub fn erruse(
+        this: Program,
+        comptime format: []const u8,
+        args: anytype,
+    ) noreturn {
+        this.errprog(format, args);
+        this.errprog(strings.try_help, .{});
         std.process.exit(1);
     }
 
