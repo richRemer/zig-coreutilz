@@ -8,8 +8,8 @@
             .hash = "12201e892fa55b36b18083107ff732cd2f62aa3adecc965dbbcff258031399e8d529",
         },
         .nss = .{
-            .url = "https://github.com/richRemer/zig-nss/archive/b695a074248331808b10d717b0ee42e6d9d149c7.tar.gz",
-            .hash = "1220f877ab0162187250dd2ef86911f565e6283c9c1f2e184e55918998b0756e1513",
+            .url = "https://github.com/richRemer/zig-nss/archive/0bffee26cebee737c96569571d57492b73fe0df8.tar.gz",
+            .hash = "1220b4079f6df3719e8b650bd0e3cff170b50d1cbb0431e836b371ca1419f4ad879c",
         },
     },
     .paths = .{

@@ -6,10 +6,14 @@ pub fn build(b: *std.Build) !void {
         .src_path = "src",
         .deps = .{ .iteropt, .nss },
         .outs = .{
+            // programs
             .false = .{ .gen = .{.exe} },
             .seq = .{ .gen = .{.exe}, .zig = .{.iteropt} },
             .true = .{ .gen = .{.exe} },
             .uname = .{ .gen = .{.exe}, .zig = .{.iteropt} },
+
+            // tests
+            .@"test-suite" = .{ .gen = .{.unit}, .zig = .{.nss} },
         },
     }).setup(b);
 }
