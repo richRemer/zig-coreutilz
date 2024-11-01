@@ -9,6 +9,7 @@ pub fn build(b: *std.Build) !void {
             // programs
             .false = .{ .gen = .{.exe} },
             .seq = .{ .gen = .{.exe}, .zig = .{.iteropt} },
+            .sleep = .{ .gen = .{.exe}, .zig = .{.iteropt} },
             .true = .{ .gen = .{.exe} },
             .uname = .{ .gen = .{.exe}, .zig = .{.iteropt} },
 
